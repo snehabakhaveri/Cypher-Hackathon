@@ -49,11 +49,23 @@ export class DbService {
     const reqWList = this.WatchLists.find((obj: any) => {
       obj._id === key;
     });
-    const updatedTokens = reqWList.tokens.concat(data);
-    const res = reqWList.update({ tokens: updatedTokens }).save();
-    return await res;
+    if (reqWList.includes(data)==false){
+      const updatedTokens = reqWList.tokens.concat(data);
+      const res = reqWList.update({ tokens: updatedTokens }).save();
+      return await res;
+    } 
   }
-
+  async deleteWithId(key: string, data: string) {
+    const reqWList = this.WatchLists.find((obj: any) => {
+      obj._id === key;
+    });
+    if (reqWList.includes(data)==true){
+      let index = reqWList.tokens.indexOf(data)
+      const updatedTokens = reqWList.tokens.splice(index,1);
+      const res = reqWList.update({ tokens: updatedTokens }).save();
+      return await res;
+    } 
+  }
   async findWithId(key: string) {
     const reqWList = this.WatchLists.find((obj: any) => {
       obj._id === key;
