@@ -32,15 +32,15 @@ export class AppController {
     const params = username.split('/');
     let id = params[0];
     let token = params[2];
-    this.dbservice.updateWithId(id,token);
-    return await 'Update Successful';
+    let data = this.dbservice.updateWithId(id,token);
+    return await JSON.stringify(data);
   }
   @Put('id/delete/token')
   async deleteToken(@Param('/id/add/token') username:string){
     const params = username.split('/');
     let id = params[0];
     let token = params[2];
-    this.dbservice.deleteWithId(id,token);
-    return await 'Update Successful';
+    let data = this.dbservice.deleteWithId(id,token);
+    return await JSON.stringify(data);
   }
 }
