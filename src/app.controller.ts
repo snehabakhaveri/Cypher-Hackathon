@@ -17,10 +17,23 @@ export class AppController {
     return await this.appService.getcoinList();
   }
   @Get('/:username')
-  async nameList(@Param() username:string){
-      let userdata = this.dbservice.WatchLists.find({name:`${username}`})
+  async nameList(@Param('username') name:string){
+      let userdata = this.dbservice.find(name);
       console.log(userdata);
-      return JSON.stringify(userdata);
+      return await JSON.stringify(userdata);
   }
-  
+  @Get('/:id')
+  async dataId(@Param('id') id:string){
+    let userdata = this.dbservice.find(id);
+    return await userdata;
+  }
+  @Put('/id/add/token')
+  async addToken(@Param('/id/add/token') username:string){
+    const params = username.split('/');
+    let id = params[0];
+    let token = params[2];
+    this.dbservice.updateWithId(id,token);
+    return await 'Update Successful';
+  }
+
 }

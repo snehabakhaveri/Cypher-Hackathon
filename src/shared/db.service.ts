@@ -8,7 +8,7 @@ import { uuid } from 'uuidv4';
 
 @Injectable()
 export class DbService {
-  public WatchLists;
+  private WatchLists;
   constructor() {
     const dbLocal = require('db-local');
     const { Schema } = new dbLocal({ path: './databases' });
@@ -23,6 +23,7 @@ export class DbService {
     const reqWList = this.WatchLists.find((obj: any) => {
       obj.name === key;
     });
+    console.log(reqWList);
     return reqWList;
   }
 
@@ -42,5 +43,22 @@ export class DbService {
     const updatedTokens = reqWList.tokens.concat(data);
     const res = reqWList.update({ tokens: updatedTokens }).save();
     return res;
+  }
+
+  async updateWithId(key: string, data: string) {
+    const reqWList = this.WatchLists.find((obj: any) => {
+      obj._id === key;
+    });
+    const updatedTokens = reqWList.tokens.concat(data);
+    const res = reqWList.update({ tokens: updatedTokens }).save();
+    return await res;
+  }
+
+  async findWithId(key: string) {
+    const reqWList = this.WatchLists.find((obj: any) => {
+      obj._id === key;
+    });
+    console.log(reqWList);
+    return await reqWList;
   }
 }
