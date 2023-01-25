@@ -9,8 +9,7 @@ export class AppController {
 
   @Get()
   async getHello() {
-    return await this.appService.ping();
-    
+    return await this.appService.ping();  
   }
   @Get('/coinList')
   async getCoins(){
