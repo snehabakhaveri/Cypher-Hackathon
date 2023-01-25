@@ -17,15 +17,16 @@ export class AppController {
     return await this.appService.getcoinList();
   }
   @Get('/:username')
-  async nameList(@Param('username') name:string){
-      let userdata = this.dbservice.find(name);
+  async nameList(@Param('username') username:string){
+      let userdata = this.dbservice.find(username);
       console.log(userdata);
       return await JSON.stringify(userdata);
   }
   @Get('/:id')
   async dataId(@Param('id') id:string){
+    console.log(id);
     let userdata = this.dbservice.find(id);
-    return await userdata;
+    return await JSON.stringify(userdata);
   }
   @Put('/id/add/token')
   async addToken(@Param('/id/add/token') username:string){
